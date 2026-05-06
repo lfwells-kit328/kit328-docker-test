@@ -7,8 +7,14 @@ services:
     ports:
       - "8080:3000"  # Map Laptop Port 8080 -> Container Port 3000
     labels:
-      caddy: studentname.uotas.edu.au
-      caddy.reverse_proxy: "{{upstreams 3000}}"
+      # Use the IP address as the site header
+      caddy: 131.217.174.85
+      
+      # 1. Match only requests starting with /lfwells
+      caddy.handle_path: /lfwells/*
+      
+      # 2. Inside that handle, proxy to the app (stripping the prefix)
+      caddy.handle_path.reverse_proxy: "{{upstreams 3000}}"
 
 networks:
   caddy_network:
