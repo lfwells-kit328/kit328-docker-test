@@ -3,6 +3,8 @@ services:
     build: ./frontend
     networks:
       - caddy_network
+    ports:
+      - "8080:3000"
     labels:
       # Caddy sees this and handles EVERYTHING (SSL + Routing)
       caddy: lfwells-kit328-test.gctrg-platform.cloud.edu.au
