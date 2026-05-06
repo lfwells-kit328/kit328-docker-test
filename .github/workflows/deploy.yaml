@@ -8,12 +8,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Execute Remote Deployment Script
+- name: Execute Remote Deployment Script
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # We pass the student name and the repo URL to our script
           script: |
-            ./deploy.sh "lfwells" "${{ github.event.repository.clone_url }}"
+            ./deploy.sh "${{ github.repository_owner }}" "${{ github.event.repository.clone_url }}"
