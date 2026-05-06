@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build: ./frontend        # Look in the frontend folder for the Dockerfile
+    container_name: student-frontend
+    networks:
+      - caddy_network
+    ports:
+      - "8080:3000"  # Map Laptop Port 8080 -> Container Port 3000
+    labels:
+      caddy: studentname.uotas.edu.au
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+
+networks:
+  caddy_network:
+    external: true
